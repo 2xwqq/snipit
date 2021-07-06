@@ -1,19 +1,19 @@
+import json
 from flask import render_template
+from flask import jsonify
+from flask import request
 from flask import Flask
 
 app = Flask(__name__)
 
+# Web application
 @app.route('/')
 def index():
-    user = {'username': 'Miguel'}
-    posts = [
-        {
-            'author': {'username': 'John'},
-            'body': 'Beautiful day in Portland!'
-        },
-        {
-            'author': {'username': 'Susan'},
-            'body': 'The Avengers movie was so cool!'
-        }
-    ]
-    return render_template('index.html', title='Home', user=user, posts=posts)
+    return render_template('index.html')
+
+
+# API
+@app.route('/v1/upload', methods=['POST'])
+def upload():
+    d = {'hello': request.form['key']}
+    return jsonify(d)
