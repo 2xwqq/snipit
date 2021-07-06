@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Test html2canvas</title>
+        <script type="text/javascript" src="html2canvas.js"></script>
+        <script type="text/javascript">
+            function snipit() {
+                console.log('SnipIt');
+                html2canvas(document.body).then(canvas => {
+                    document.body.appendChild(canvas);
+                });  
+            }
+            document.addEventListener("DOMContentLoaded", snipit);
+        </script>        
+    </head>
+    <body>
+        <div id="capture" style="padding: 10px; background: #f5da55">
+            <h4 style="color: #000; ">Hello world!</h4>
+        </div>
+    </body>
+</html>
