@@ -1,4 +1,5 @@
 import json
+import os
 from flask import render_template
 from flask import jsonify
 from flask import request
@@ -13,7 +14,17 @@ def index():
 
 
 # API
+# Test
+@app.route('/v1/test', methods=['POST'])
+def test():
+    d = {'hello': request.json['key']}
+    return jsonify(d)
+
+
 @app.route('/v1/upload', methods=['POST'])
 def upload():
-    d = {'hello': request.form['key']}
+    file = request.files['file']
+    filename = file.filename
+    file.save(f'{os.getcwd()}/uploaded/{filename}')
+    d = {'file': filename}
     return jsonify(d)
