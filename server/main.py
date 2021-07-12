@@ -1,5 +1,6 @@
 import json
 import os
+import flask
 from flask import render_template
 from flask import jsonify
 from flask import request
@@ -11,6 +12,11 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     return render_template('index.html')
+
+
+@app.route('/images/<path:name>')
+def images(name):
+    return flask.send_from_directory('templates/images', name)
 
 
 # API
