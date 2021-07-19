@@ -16,7 +16,28 @@ DB = 'db.txt'
 # Web application
 @app.route('/')
 def index():
-    return render_template('index.html')
+    # TODO: Read db.txt file and populate file data:
+    #   - random number
+    #   - filename
+    #   - timestamp
+    # Tip: Use
+    #   - open(),
+    # >>> with open('db.txt') as f:
+    # ...   for line in f:
+    #           # Use line
+    #   - .split(',')
+    #   - images.append({'id': '...', 'filename': '...', 'timestamp': '...'})
+    images = [
+        # Example:
+        {
+            'id': '23',
+            'filename': 'epoch.png',
+            'timestamp': '1624335296'
+        },
+        # ...
+        # For every file line
+    ]
+    return render_template('index.html', image=images)
 
 
 @app.route('/<path:id>')
