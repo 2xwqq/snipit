@@ -2,6 +2,7 @@ import random
 import json
 import os
 import flask
+import time
 from flask import abort
 from flask import render_template
 from flask import jsonify
@@ -59,10 +60,11 @@ def upload():
     filename = file.filename
     file.save(f'{os.getcwd()}/uploaded/{filename}')
     d = {'file': filename}
-    # TODO: Save file in "uploaded" directory
-    # >TODO: Get random number: 34
-    # TODO: Convert current time to timestamp
-    # >TODO: Add line to db.txt: open(filename, 'a')
+    number = random.randrange(99)
+    ts = int(time.time())
+    line = f'{number},{filename},{ts}\n'
+    with open('db.txt', 'a') as f:
+        f.write(line)
     return jsonify(d)
 
 
