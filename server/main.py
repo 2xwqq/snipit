@@ -22,8 +22,10 @@ def index():
     #   - timestamp
     # Tip: Use
     #   - open(),
+    #   images = []
     # >>> with open('db.txt') as f:
     # ...   for line in f:
+    #           print(line) 
     #           # Use line
     #   - .split(',')
     #   - images.append({'id': '...', 'filename': '...', 'timestamp': '...'})
