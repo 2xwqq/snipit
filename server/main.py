@@ -29,6 +29,8 @@ def index():
     #           # Use line
     #   - .split(',')
     #   - images.append({'id': '...', 'filename': '...', 'timestamp': '...'})
+    # Part 1: Populate "images"
+    # Part 2: Use "images" in template
     images = [
         # Example:
         {
