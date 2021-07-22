@@ -3,6 +3,7 @@ import json
 import os
 import flask
 import time
+import datetime
 from flask import abort
 from flask import render_template
 from flask import jsonify
@@ -11,37 +12,20 @@ from flask import Flask
 
 app = Flask(__name__)
 
-DB = 'db.txt'
+DB = 'server/db.txt'
 
 # Web application
 @app.route('/')
 def index():
-    # TODO: Read db.txt file and populate file data:
-    #   - random number
-    #   - filename
-    #   - timestamp
-    # Tip: Use
-    #   - open(),
-    #   images = []
-    # >>> with open('db.txt') as f:
-    # ...   for line in f:
-    #           print(line) 
-    #           # Use line
-    #   - .split(',')
-    #   - images.append({'id': '...', 'filename': '...', 'timestamp': '...'})
-    # Part 1: Populate "images"
-    # Part 2: Use "images" in template
-    images = [
-        # Example:
-        {
-            'id': '23',
-            'filename': 'epoch.png',
-            'timestamp': '1624335296'
-        },
-        # ...
-        # For every file line
-    ]
-    return render_template('index.html', image=images)
+    images = []
+    with open(DB) as f:
+        for line in f:
+          parts = line.rstrip().split(',')
+          ts = parts[2]
+          d = datetime.date.fromtimestamp(int(parts[2]))
+          d = d.strftime('%d %B %Y')
+          images.append({'id': parts[0], 'filename': parts[1], 'timestamp': parts[2], 'date': d})      
+    return render_template('index.html', images=images)
 
 
 @app.route('/<path:id>')
