@@ -1,0 +1,15 @@
+{
+    "manifest_version": 2,
+    "name": "SnipIt",
+    "description": "Chrome screenshot maker",
+    "version": "1.0.0",
+    "icons": {"128": "icon_128.png"},
+    "browser_action": {
+        "default_icon": "icon_128.png",
+        "default_popup": "popup.html"
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "permissions": ["tabs", "<all_urls>", "activeTab"]
+}
