@@ -67,12 +67,12 @@ def test():
 def upload():
     file = request.files['file']
     filename = file.filename
-    file.save(f'{os.getcwd()}/uploaded/{filename}')
+    file.save(f'{os.getcwd()}/server/uploaded/{filename}')
     d = {'file': filename}
     number = random.randrange(99)
     ts = int(time.time())
     line = f'{number},{filename},{ts}\n'
-    with open('db.txt', 'a') as f:
+    with open('server/db.txt', 'a') as f:
         f.write(line)
     return jsonify(d)
 
