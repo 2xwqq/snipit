@@ -6,8 +6,8 @@ function snipit(callback) {
         var canvas = document.createElement('canvas');
         var img = new Image();
         img.onload = function() {
-            canvas.width = 500;
-            canvas.height = 300;
+            canvas.width = 1200;
+            canvas.height = 600;
             canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
 
             canvas.toBlob((blob) => {           

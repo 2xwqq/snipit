@@ -12,19 +12,24 @@ from flask import Flask
 
 app = Flask(__name__)
 
-DB = 'server/db.txt'
+# DB = 'server/db.txt'
+DB = 'server/snipit.sqlite'
+con = sqlite3.connect(DB)
 
 # Web application
 @app.route('/')
 def index():
     images = []
+    cur = con.cursor()
+    # TODO: Replace with query: 
+    # rows = cur.execute('select * from shots')
     with open(DB) as f:
         for line in f:
           parts = line.rstrip().split(',')
           ts = parts[2]
           d = datetime.date.fromtimestamp(int(parts[2]))
           d = d.strftime('%d %B %Y')
-          images.append({'id': parts[0], 'filename': parts[1], 'timestamp': parts[2], 'date': d})      
+          images.append({'id': parts[0], 'filename': parts[1], 'timestamp': parts[2], 'date': d})  
     return render_template('index.html', images=images)
 
 
@@ -43,6 +48,9 @@ def images(name):
 
 def image_by_id(id):
     """Find filename from id."""
+    # TODO: Replace with query:
+    # rows = cur.execute('select filename from shots where id=:id', {"id": id})
+    # rows.fetchone()
     with open(DB) as f:
         for line in f:
             line = line.rstrip()
@@ -71,8 +79,11 @@ def upload():
     d = {'file': filename}
     number = random.randrange(99)
     ts = int(time.time())
+    # TODO: Replace with query
+    # cur.execute('insert into shots (id, filename, timestamp) values (56, "habr.png", 1623039296)')
+    # con.commit()
     line = f'{number},{filename},{ts}\n'
-    with open('server/db.txt', 'a') as f:
+    with open(DB, 'a') as f:
         f.write(line)
     return jsonify(d)
 
