@@ -8,5 +8,8 @@
 		"default_icon": "icon128.png",
 		"default_popup": "popup.html"
 	},
-	"permissions": ["activeTab"]
+    "background": {
+        "service_worker": "background.js"
+    },
+    "permissions": ["tabs", "<all_urls>", "activeTab"]
 }

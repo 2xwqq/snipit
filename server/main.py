@@ -25,6 +25,7 @@ def index():
           d = datetime.date.fromtimestamp(int(parts[2]))
           d = d.strftime('%d %B %Y')
           images.append({'id': parts[0], 'filename': parts[1], 'timestamp': parts[2], 'date': d})      
+          images.sort(key=lambda x: x['timestamp'], reverse=True)
     return render_template('index.html', images=images)
 
 
@@ -39,6 +40,7 @@ def shot(id):
 @app.route('/images/<path:name>')
 def images(name):
     return flask.send_from_directory('templates/images', name)
+    images.sort(key=lambda x: x['timestamp'], reverse=True)
 
 
 def image_by_id(id):
@@ -67,12 +69,12 @@ def test():
 def upload():
     file = request.files['file']
     filename = file.filename
-    file.save(f'{os.getcwd()}/uploaded/{filename}')
+    file.save(f'{os.getcwd()}/server/uploaded/{filename}')
     d = {'file': filename}
     number = random.randrange(99)
     ts = int(time.time())
     line = f'{number},{filename},{ts}\n'
-    with open('db.txt', 'a') as f:
+    with open(DB, 'a') as f:
         f.write(line)
     return jsonify(d)
 
